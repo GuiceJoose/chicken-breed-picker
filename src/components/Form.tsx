@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormData } from "../App";
 import SingleAnswerQuestion from "./SingleAnswerQuestion";
 import MultipleAnswerQuestion from "./MultipleAnswerQuestion";
@@ -43,56 +43,120 @@ export interface Question {
 
 const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [didUserAnswer, setDidUserAnswer] = useState(false);
+
+  useEffect(() => {
+    // Checks whether question has single answer option or multiple answer options,
+    // then checks if the user selected an answer
+
+    if (
+      typeof formData[
+        questions[currentQuestion].parameter as keyof FormData
+      ] === "number"
+    ) {
+      if (
+        formData[questions[currentQuestion].parameter as keyof FormData] > -1
+      ) {
+        setDidUserAnswer(true);
+      } else setDidUserAnswer(false);
+    }
+    if (
+      typeof formData[
+        questions[currentQuestion].parameter as keyof FormData
+      ] === "object"
+    ) {
+      if (
+        formData[questions[currentQuestion].parameter as keyof FormData]
+          .length > 1
+      ) {
+        setDidUserAnswer(true);
+      } else setDidUserAnswer(false);
+    }
+  }, [currentQuestion, formData]);
 
   const questions: Question[] = [
     {
       parameter: "eggs",
-      legendContent: "How many eggs ya want",
-      options: ["like none", "some", "decent amount", "tons"],
+      legendContent: "How important is egg laying ability?",
+      options: [
+        "I don't really care to eat eggs",
+        "At lest some eggs would be nice",
+        "I want a good number of eggs",
+        "They better lay a lot of eggs or they're out of here!",
+      ],
     },
     {
       parameter: "meat",
-      legendContent: "How much meat ya want",
-      options: ["like none", "decent amount", "tons"],
+      legendContent: "How important is meat production?",
+      options: [
+        "I wouldn't eat my chickens!",
+        "I'd like to eat some chicken occasionally",
+        "That's what they're for!",
+      ],
     },
     {
       parameter: "pet",
-      legendContent: "how good of a pet?",
-      options: ["meh", "decently nice", "cuddly"],
+      legendContent: "How important is your chicken's personality?",
+      options: [
+        "Don't care, they're livestock",
+        "It would be nice if they were somewhat friendly",
+        "I want a cuddly pet!",
+      ],
     },
     {
       parameter: "size",
-      legendContent: "How big da chicken",
-      options: ["little", "medium", "big"],
+      legendContent: "Is the size of your chicken important?",
+      options: [
+        "Size doesn't matter",
+        "I want small birds",
+        "Medium is just right",
+        "The bigger the better!",
+      ],
     },
     {
       parameter: "heat",
-      legendContent: "how much heat tolerance?",
-      options: ["some", "decent amount", "tons"],
+      legendContent: "How hot is your climate?",
+      options: [
+        "It's warm in the summer, but not bad",
+        "It gets pretty hot",
+        "I would die without air conditioning",
+      ],
     },
     {
       parameter: "cold",
-      legendContent: "how much cold tolerance?",
-      options: ["some", "decent amount", "tons"],
+      legendContent: "How cold are your winters?",
+      options: [
+        "I get the gloves and hats out above freezing",
+        "It snows sometimes",
+        "I snowmobile to work",
+      ],
     },
     {
       parameter: "freeRange",
-      legendContent: "want the chicken to free range?",
-      options: ["yes, no"],
+      legendContent:
+        "Do you want your chickens to free range and forage for their food?",
+      options: [
+        "No, I'll keep them in their own run",
+        "Yeah, find your own food ya freeloader!",
+      ],
     },
     {
       parameter: "broody",
-      legendContent: "want the chicken to raise its chrilren?",
-      options: ["yes, no"],
+      legendContent:
+        "Do you want your chickens to hatch their own eggs and raise their babies?",
+      options: [
+        "Yes, I want broody chickens!",
+        "No, get back to laying eggs already!",
+      ],
     },
     {
       parameter: "hybrid",
-      legendContent: "are hybrids ok?",
-      options: ["yes, no"],
+      legendContent: "Are you ok with hybrid chickens?",
+      options: ["No", "Yes"],
     },
     {
       parameter: "eggColors",
-      legendContent: "what color eggs?",
+      legendContent: "What color eggs do you want your chickens to lay?",
       options: ["white", "light brown", "dark brown", "green", "blue"],
     },
   ];
@@ -141,6 +205,7 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
           back
         </button>
         <NextButton
+          didUserAnswer={didUserAnswer}
           onClick={
             currentQuestion === questions.length - 1 ? handleSubmit : handleNext
           }

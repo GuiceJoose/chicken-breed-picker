@@ -19,16 +19,16 @@ export interface FormData {
 function App() {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    eggs: 3,
-    meat: 2,
-    pet: 1,
-    cold: 2,
-    heat: 2,
-    size: 2,
-    freeRange: 1,
-    broody: 0,
-    hybrid: 0,
-    eggColors: ["white"],
+    eggs: -1,
+    meat: -1,
+    pet: -1,
+    cold: -1,
+    heat: -1,
+    size: -1,
+    freeRange: -1,
+    broody: -1,
+    hybrid: -1,
+    eggColors: [""],
   });
 
   return (
