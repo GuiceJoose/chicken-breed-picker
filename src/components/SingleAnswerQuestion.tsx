@@ -23,7 +23,7 @@ const SingleAnswerQuestion: React.FC<SingleAnswerQuestionProps> = ({
               id={`${parameter}${index}`}
               name={parameter}
               type="radio"
-              checked={formData[parameter] === index}
+              checked={formData[parameter as keyof FormData] === index}
               onChange={onChange}
             />
             <label htmlFor={`${parameter}${index}`}>{option}</label>

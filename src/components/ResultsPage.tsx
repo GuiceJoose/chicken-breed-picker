@@ -8,7 +8,12 @@ const ResultsPage = ({ formData }: Props) => {
   return (
     <ul>
       {Object.keys(formData).map((key) => {
-        return <li>{formData[key as keyof FormData]}</li>;
+        return (
+          <li>
+            {`${key}: `}
+            {formData[key as keyof FormData]}
+          </li>
+        );
       })}
     </ul>
   );

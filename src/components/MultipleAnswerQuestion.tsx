@@ -1,3 +1,4 @@
+import { FormData } from "../App";
 import { MultipleAnswerQuestionProps } from "./Form";
 
 const MultipleAnswerQuestion: React.FC<MultipleAnswerQuestionProps> = ({
