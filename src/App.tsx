@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
+import ResultsPage from "./components/ResultsPage";
 
 export interface FormData {
   eggs: number;
@@ -12,10 +13,11 @@ export interface FormData {
   freeRange: number;
   broody: number;
   hybrid: number;
-  eggColors: number;
+  eggColors: string[];
 }
 
 function App() {
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     eggs: 3,
     meat: 2,
@@ -26,13 +28,20 @@ function App() {
     freeRange: 1,
     broody: 0,
     hybrid: 0,
-    eggColors: 0,
+    eggColors: ["white"],
   });
 
   return (
     <div className="App">
-      <div>{formData.eggs}</div>
-      <Form formData={formData} setFormData={setFormData} />
+      {isFormSubmitted ? (
+        <ResultsPage formData={formData} />
+      ) : (
+        <Form
+          formData={formData}
+          setFormData={setFormData}
+          setIsFormSubmitted={setIsFormSubmitted}
+        />
+      )}
     </div>
   );
 }
