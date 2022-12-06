@@ -7,9 +7,9 @@ export interface FormData {
   eggs: number;
   meat: number;
   pet: number;
-  cold: number;
-  heat: number;
   size: number;
+  heat: number;
+  cold: number;
   freeRange: number;
   broody: number;
   hybrid: number;

@@ -8,15 +8,47 @@
 ul.progress-bar {
   list-style-type: none;
   display: flex;
+  gap: 0.25rem;
 }
 
-li.progress-filled {
-  height: 10px;
-  width: 50px;
-  background-color: blue;
+.progress-unfilled {
+  width: 35px;
+  height: 50px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border: 3px solid #1c446b;
+}
+.progress-filled {
+  width: 35px;
+  height: 50px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border: 3px solid #1c446b;
+  background-color: lightblue;
 }
 
-li.progress-unfilled {
-  height: 10px;
-  width: 50px;
+.question-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.question-enter-active {
+  opacity: 1;
+  transform: translate(500);
+  transition: opacity 3000ms, transform 3000ms;
+}
+.question-exit {
+  opacity: 1;
+}
+.question-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.question-appear {
+  opacity: 0;
+  transform: translateX(750px);
+}
+.question-appear-done {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 1500ms;
 }

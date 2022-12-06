@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormData } from "../App";
 import SingleAnswerQuestion from "./SingleAnswerQuestion";
 import MultipleAnswerQuestion from "./MultipleAnswerQuestion";
 import NextButton from "./NextButton";
 import ProgressBar from "./ProgressBar";
+import { CSSTransition } from "react-transition-group";
 
 export interface SingleAnswerQuestionProps {
   formData: FormData;
@@ -19,31 +20,23 @@ export interface MultipleAnswerQuestionProps {
   options: string[];
   parameter: "eggColors";
 }
+
+export interface Question {
+  legendContent: string;
+  options: string[];
+  parameter: string;
+}
+
 interface Props {
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   setIsFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface Question {
-  legendContent: string;
-  options: string[];
-  parameter: string;
-  // | "eggs"
-  // | "meat"
-  // | "pet"
-  // | "heat"
-  // | "cold"
-  // | "size"
-  // | "freeRange"
-  // | "broody"
-  // | "hybrid"
-  // | "eggColors";
-}
-
 const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [didUserAnswer, setDidUserAnswer] = useState(false);
+  const nodeRef = useRef(null);
 
   useEffect(() => {
     // Checks whether question has single answer option or multiple answer options,
@@ -66,8 +59,11 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
       ] === "object"
     ) {
       if (
-        formData[questions[currentQuestion].parameter as keyof FormData]
-          .length > 1
+        (
+          formData[
+            questions[currentQuestion].parameter as keyof FormData
+          ] as string[]
+        ).length > 1
       ) {
         setDidUserAnswer(true);
       } else setDidUserAnswer(false);
@@ -107,10 +103,10 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
       parameter: "size",
       legendContent: "Is the size of your chicken important?",
       options: [
-        "Size doesn't matter",
         "I want small birds",
         "Medium is just right",
         "The bigger the better!",
+        "Size doesn't matter",
       ],
     },
     {
@@ -145,8 +141,8 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
       legendContent:
         "Do you want your chickens to hatch their own eggs and raise their babies?",
       options: [
-        "Yes, I want broody chickens!",
         "No, get back to laying eggs already!",
+        "Yes, I want broody chickens!",
       ],
     },
     {
@@ -157,7 +153,7 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
     {
       parameter: "eggColors",
       legendContent: "What color eggs do you want your chickens to lay?",
-      options: ["white", "light brown", "dark brown", "green", "blue"],
+      options: ["White", "Light Brown", "Dark Brown", "Green", "Blue"],
     },
   ];
 
@@ -182,25 +178,36 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
         currentQuestion={currentQuestion}
       />
       <form>
-        {typeof formData[
-          questions[currentQuestion].parameter as keyof FormData
-        ] === "object" ? (
-          <MultipleAnswerQuestion
-            formData={formData}
-            setFormData={setFormData}
-            legendContent={questions[currentQuestion].legendContent}
-            options={questions[currentQuestion].options}
-            parameter={questions[currentQuestion].parameter}
-          />
-        ) : (
-          <SingleAnswerQuestion
-            formData={formData}
-            setFormData={setFormData}
-            legendContent={questions[currentQuestion].legendContent}
-            options={questions[currentQuestion].options}
-            parameter={questions[currentQuestion].parameter}
-          />
-        )}
+        <CSSTransition
+          in={true}
+          appear={true}
+          mountOnEnter={true}
+          nodeRef={nodeRef}
+          timeout={{ appear: 1, enter: 1 }}
+          classNames="question"
+        >
+          <div ref={nodeRef}>
+            {typeof formData[
+              questions[currentQuestion].parameter as keyof FormData
+            ] === "object" ? (
+              <MultipleAnswerQuestion
+                formData={formData}
+                setFormData={setFormData}
+                legendContent={questions[currentQuestion].legendContent}
+                options={questions[currentQuestion].options}
+                parameter={questions[currentQuestion].parameter as "eggColors"}
+              />
+            ) : (
+              <SingleAnswerQuestion
+                formData={formData}
+                setFormData={setFormData}
+                legendContent={questions[currentQuestion].legendContent}
+                options={questions[currentQuestion].options}
+                parameter={questions[currentQuestion].parameter}
+              />
+            )}
+          </div>
+        </CSSTransition>
         <button type="button" onClick={handleBack}>
           back
         </button>
