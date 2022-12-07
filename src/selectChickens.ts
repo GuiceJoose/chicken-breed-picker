@@ -51,7 +51,11 @@ export function selectChickens(
   };
 
   const filterByBroody = (chicken: ChickenJSON) => {
-    return chicken.broody === inputData.broody;
+    if (inputData.broody === 2) {
+      return true;
+    } else {
+      return chicken.broody === inputData.broody;
+    }
   };
 
   const filterByHybrid = (chicken: ChickenJSON) => {

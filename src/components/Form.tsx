@@ -4,7 +4,6 @@ import SingleAnswerQuestion from "./SingleAnswerQuestion";
 import MultipleAnswerQuestion from "./MultipleAnswerQuestion";
 import NextButton from "./NextButton";
 import ProgressBar from "./ProgressBar";
-import { CSSTransition } from "react-transition-group";
 
 export interface SingleAnswerQuestionProps {
   formData: FormData;
@@ -143,6 +142,7 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
       options: [
         "No, get back to laying eggs already!",
         "Yes, I want broody chickens!",
+        "I don't mind either way",
       ],
     },
     {
@@ -178,36 +178,27 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
         currentQuestion={currentQuestion}
       />
       <form>
-        <CSSTransition
-          in={true}
-          appear={true}
-          mountOnEnter={true}
-          nodeRef={nodeRef}
-          timeout={{ appear: 1, enter: 1 }}
-          classNames="question"
-        >
-          <div ref={nodeRef}>
-            {typeof formData[
-              questions[currentQuestion].parameter as keyof FormData
-            ] === "object" ? (
-              <MultipleAnswerQuestion
-                formData={formData}
-                setFormData={setFormData}
-                legendContent={questions[currentQuestion].legendContent}
-                options={questions[currentQuestion].options}
-                parameter={questions[currentQuestion].parameter as "eggColors"}
-              />
-            ) : (
-              <SingleAnswerQuestion
-                formData={formData}
-                setFormData={setFormData}
-                legendContent={questions[currentQuestion].legendContent}
-                options={questions[currentQuestion].options}
-                parameter={questions[currentQuestion].parameter}
-              />
-            )}
-          </div>
-        </CSSTransition>
+        <div className="question" key={currentQuestion}>
+          {typeof formData[
+            questions[currentQuestion].parameter as keyof FormData
+          ] === "object" ? (
+            <MultipleAnswerQuestion
+              formData={formData}
+              setFormData={setFormData}
+              legendContent={questions[currentQuestion].legendContent}
+              options={questions[currentQuestion].options}
+              parameter={questions[currentQuestion].parameter as "eggColors"}
+            />
+          ) : (
+            <SingleAnswerQuestion
+              formData={formData}
+              setFormData={setFormData}
+              legendContent={questions[currentQuestion].legendContent}
+              options={questions[currentQuestion].options}
+              parameter={questions[currentQuestion].parameter}
+            />
+          )}
+        </div>
         <button type="button" onClick={handleBack}>
           back
         </button>

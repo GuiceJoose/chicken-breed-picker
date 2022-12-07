@@ -52,3 +52,20 @@ ul.progress-bar {
   transform: translateX(0);
   transition: transform 1500ms;
 }
+
+.question {
+  animation-duration: 1s;
+  animation-name: fadein;
+  animation-iteration-count: 0.75;
+  animation-direction: alternate;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
