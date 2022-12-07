@@ -26,8 +26,16 @@ const MultipleAnswerQuestion: React.FC<MultipleAnswerQuestionProps> = ({
     }
   };
 
+  const eggColorMap = {
+    White: "#FFFFFF",
+    "Light Brown": "#b5651d",
+    "Dark Brown": "#744112",
+    Green: "#787D33",
+    Blue: "#ADD8E6",
+  };
+
   return (
-    <fieldset>
+    <fieldset className="question-field">
       <legend>{legendContent}</legend>
       {options.map((option, index) => {
         return (
@@ -39,6 +47,13 @@ const MultipleAnswerQuestion: React.FC<MultipleAnswerQuestionProps> = ({
               type="checkbox"
               checked={formData[parameter].includes(option)}
               onChange={onChange}
+              className="checkbox-input"
+              style={
+                {
+                  "--eggCheckboxColor":
+                    eggColorMap[option as keyof typeof eggColorMap],
+                } as React.CSSProperties
+              }
             />
             <label htmlFor={`${parameter}${index}`}>{option}</label>
           </div>

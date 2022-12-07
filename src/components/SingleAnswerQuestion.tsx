@@ -13,7 +13,7 @@ const SingleAnswerQuestion: React.FC<SingleAnswerQuestionProps> = ({
   };
 
   return (
-    <fieldset>
+    <fieldset className="question-field">
       <legend>{legendContent}</legend>
       {options.map((option, index) => {
         return (
@@ -25,8 +25,11 @@ const SingleAnswerQuestion: React.FC<SingleAnswerQuestionProps> = ({
               type="radio"
               checked={formData[parameter as keyof FormData] === index}
               onChange={onChange}
+              className="radio-input"
             />
-            <label htmlFor={`${parameter}${index}`}>{option}</label>
+            <label className="radio-label" htmlFor={`${parameter}${index}`}>
+              {option}
+            </label>
           </div>
         );
       })}

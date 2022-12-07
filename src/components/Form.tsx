@@ -75,7 +75,7 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
       legendContent: "How important is egg laying ability?",
       options: [
         "I don't really care to eat eggs",
-        "At lest some eggs would be nice",
+        "At least some eggs would be nice",
         "I want a good number of eggs",
         "They better lay a lot of eggs or they're out of here!",
       ],
@@ -199,15 +199,23 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
             />
           )}
         </div>
-        <button type="button" onClick={handleBack}>
-          back
-        </button>
-        <NextButton
-          didUserAnswer={didUserAnswer}
-          onClick={
-            currentQuestion === questions.length - 1 ? handleSubmit : handleNext
-          }
-        />
+        <fieldset className="buttons-field">
+          {currentQuestion === 0 ? (
+            ""
+          ) : (
+            <button className="back-button" type="button" onClick={handleBack}>
+              back
+            </button>
+          )}
+          <NextButton
+            didUserAnswer={didUserAnswer}
+            onClick={
+              currentQuestion === questions.length - 1
+                ? handleSubmit
+                : handleNext
+            }
+          />
+        </fieldset>
       </form>
     </>
   );

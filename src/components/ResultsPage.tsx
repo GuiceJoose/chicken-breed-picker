@@ -21,7 +21,6 @@ const ResultsPage = ({ formData }: Props) => {
   return (
     <div>
       <h2>{selectChickens(formData, chickens).length}</h2>
-      <h2>{formData.eggColors}</h2>
       {selectChickens(formData, chickens).map((chicken) => {
         return (
           <div>
@@ -39,6 +38,7 @@ const ResultsPage = ({ formData }: Props) => {
           </div>
         );
       })}
+      <button>Start Over</button>
     </div>
   );
 };

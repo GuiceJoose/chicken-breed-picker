@@ -8,7 +8,11 @@ interface Props {
 
 const NextButton = ({ onClick, didUserAnswer }: Props) => {
   return (
-    <button type="button" onClick={didUserAnswer ? onClick : undefined}>
+    <button
+      className="next-button"
+      type="button"
+      onClick={didUserAnswer ? onClick : undefined}
+    >
       next
     </button>
   );
