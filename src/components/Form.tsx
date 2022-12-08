@@ -35,7 +35,6 @@ interface Props {
 const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [didUserAnswer, setDidUserAnswer] = useState(false);
-  const nodeRef = useRef(null);
 
   useEffect(() => {
     // Checks whether question has single answer option or multiple answer options,
