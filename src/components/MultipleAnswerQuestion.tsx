@@ -32,6 +32,7 @@ const MultipleAnswerQuestion: React.FC<MultipleAnswerQuestionProps> = ({
     "Dark Brown": "#744112",
     Green: "#787D33",
     Blue: "#ADD8E6",
+    Pink: "#FFEBEC",
   };
 
   return (

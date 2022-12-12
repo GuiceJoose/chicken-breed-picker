@@ -10,6 +10,10 @@ interface Props {
 const ResultsPage = ({ formData }: Props) => {
   const [chickens, setChickens] = useState([]);
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   useEffect(() => {
     fetch("dummyData.json")
       .then((res) => res.json())
@@ -38,7 +42,7 @@ const ResultsPage = ({ formData }: Props) => {
           </div>
         );
       })}
-      <button>Start Over</button>
+      <button onClick={handleReload}>Start Over</button>
     </div>
   );
 };

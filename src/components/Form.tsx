@@ -152,7 +152,7 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
     {
       parameter: "eggColors",
       legendContent: "What color eggs do you want your chickens to lay?",
-      options: ["White", "Light Brown", "Dark Brown", "Green", "Blue"],
+      options: ["White", "Light Brown", "Dark Brown", "Green", "Blue", "Pink"],
     },
   ];
 

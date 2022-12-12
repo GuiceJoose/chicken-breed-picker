@@ -10,7 +10,7 @@ export interface ChickenJSON {
   size: number;
   freeRange: number;
   broody: number;
-  eggColor: string;
+  eggColor: string | string[];
   hybrid: number;
 }
 
@@ -63,7 +63,12 @@ export function selectChickens(
   };
 
   const filterByEggColor = (chicken: ChickenJSON) => {
-    return inputData.eggColors.includes(chicken.eggColor);
+    if (typeof chicken.eggColor === "string") {
+      return inputData.eggColors.includes(chicken.eggColor);
+    } else
+      return inputData.eggColors.some((color) =>
+        chicken.eggColor.includes(color)
+      );
   };
 
   const filters = [
