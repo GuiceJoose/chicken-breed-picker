@@ -8,10 +8,12 @@ export interface ChickenJSON {
   cold: number;
   heat: number;
   size: number;
-  freeRange: number;
   broody: number;
   eggColor: string | string[];
   hybrid: number;
+  "Eggs per year": number;
+  "Weight(Hen)": number;
+  "Weight(Rooster)": number;
 }
 
 export function selectChickens(
@@ -46,10 +48,6 @@ export function selectChickens(
     return chicken.cold >= inputData.cold;
   };
 
-  const filterByFreeRange = (chicken: ChickenJSON) => {
-    return chicken.freeRange <= inputData.freeRange;
-  };
-
   const filterByBroody = (chicken: ChickenJSON) => {
     if (inputData.broody === 2) {
       return true;
@@ -78,7 +76,6 @@ export function selectChickens(
     filterBySize,
     filterByHeat,
     filterByCold,
-    filterByFreeRange,
     filterByBroody,
     filterByHybrid,
     filterByEggColor,

@@ -10,6 +10,10 @@
   width: 100%;
 }
 
+ul {
+  list-style-type: none;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -25,7 +29,6 @@ form {
 }
 
 ul.progress-bar {
-  list-style-type: none;
   display: flex;
   gap: 0.25rem;
   justify-content: center;
@@ -121,7 +124,7 @@ input.radio-input:checked {
 }
 
 .checkbox-input:checked {
-  background-color: var(--eggCheckboxColor);
+  background: var(--eggCheckboxColor);
   border: 3px solid black;
   transform: scale(1.2);
 }
@@ -130,6 +133,7 @@ input.radio-input:checked {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 6rem;
 }
 
 .question {
@@ -137,6 +141,17 @@ input.radio-input:checked {
   animation-name: fadein;
   animation-iteration-count: 0.75;
   animation-direction: alternate;
+}
+
+.chicken-card-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chicken-card-stats > li {
+  border: 1px solid black;
+  width: 10rem;
 }
 
 @keyframes fadein {

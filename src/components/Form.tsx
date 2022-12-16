@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FormData } from "../App";
 import SingleAnswerQuestion from "./SingleAnswerQuestion";
 import MultipleAnswerQuestion from "./MultipleAnswerQuestion";
@@ -126,15 +126,6 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
       ],
     },
     {
-      parameter: "freeRange",
-      legendContent:
-        "Do you want your chickens to free range and forage for their food?",
-      options: [
-        "No, I'll keep them in their own run",
-        "Yeah, find your own food ya freeloader!",
-      ],
-    },
-    {
       parameter: "broody",
       legendContent:
         "Do you want your chickens to hatch their own eggs and raise their babies?",
@@ -151,7 +142,8 @@ const Form = ({ formData, setFormData, setIsFormSubmitted }: Props) => {
     },
     {
       parameter: "eggColors",
-      legendContent: "What color eggs do you want your chickens to lay?",
+      legendContent:
+        "What color eggs do you want your chickens to lay? (Select as many as you like)",
       options: ["White", "Light Brown", "Dark Brown", "Green", "Blue", "Pink"],
     },
   ];
